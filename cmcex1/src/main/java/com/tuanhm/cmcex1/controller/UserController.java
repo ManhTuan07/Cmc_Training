@@ -4,6 +4,7 @@ package com.tuanhm.cmcex1.controller;
 import com.tuanhm.cmcex1.model.User;
 import com.tuanhm.cmcex1.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +26,13 @@ public class UserController {
 //        System.out.println(userService.getAll(permissionName));
 //        return ResponseEntity.ok().body(userService.getAll(permissionName));
 //    }
-    public ResponseEntity<?> get (@RequestHeader(name = "permissionName", required = false) String permissionName){
-        return ResponseEntity.ok(userService.getAll(permissionName));
+    public ResponseEntity<?> get (){
+        return ResponseEntity.ok(userService.getAll());
+    }
+
+    @GetMapping("/users/page")
+    public ResponseEntity<?> getPage (Pageable pageable){
+        return ResponseEntity.ok(userService.getPage(pageable));
     }
 
     @PostMapping("/create")

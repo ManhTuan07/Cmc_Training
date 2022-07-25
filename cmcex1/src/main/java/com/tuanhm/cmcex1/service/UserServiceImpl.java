@@ -3,10 +3,11 @@ package com.tuanhm.cmcex1.service;
 import com.tuanhm.cmcex1.converter.UserMapper;
 import com.tuanhm.cmcex1.dto.UserDto;
 import com.tuanhm.cmcex1.model.User;
-import com.tuanhm.cmcex1.repository.PermissionRepository;
 import com.tuanhm.cmcex1.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -16,13 +17,11 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    @Autowired
-    private UserRepository userRepository;
-
+    private final UserRepository userRepository;
     private final UserMapper userMapper;
 
     @Override
-    public List<UserDto> getAll(String permissionName) {
+    public List<UserDto> getAll() {
         return userRepository.findAll().
                 stream().
                 map(userMapper::toDto).
@@ -32,5 +31,10 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public User saveOrUpdate(User user) {
         return userRepository.save(user);
+    }
+
+    @Override
+    public Page<UserDto> getPage(Pageable pageable) {
+        return userRepository.findAll(pageable).map(userMapper::toDto);
     }
 }

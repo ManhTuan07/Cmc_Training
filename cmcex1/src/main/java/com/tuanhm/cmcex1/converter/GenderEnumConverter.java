@@ -1,11 +1,12 @@
 package com.tuanhm.cmcex1.converter;
 
 import com.tuanhm.cmcex1.constant.Gender;
+import org.mapstruct.Mapping;
 
 import javax.persistence.AttributeConverter;
 
 public class GenderEnumConverter implements AttributeConverter<Gender,String> {
-    @Override
+
     public String convertToDatabaseColumn(Gender attribute) {
         return attribute.getValue();
     }

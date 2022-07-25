@@ -10,7 +10,5 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User,Long> {
-    List<UserDto> findByPermissions_PermissionName(String permisstion);
-
     User save(User user);
 }

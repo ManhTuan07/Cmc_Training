@@ -1,6 +1,8 @@
 package com.tuanhm.cmcex1.model;
 import com.tuanhm.cmcex1.constant.Gender;
+import com.tuanhm.cmcex1.constant.Permission;
 import com.tuanhm.cmcex1.converter.GenderEnumConverter;
+import com.tuanhm.cmcex1.converter.PermissionEnumConverter;
 import lombok.*;
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -22,9 +24,12 @@ public class User {
     @Convert(converter = GenderEnumConverter.class)
     private Gender gender;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name="user_permission",
-            joinColumns = {@JoinColumn(name="user_id")} ,
-            inverseJoinColumns = {@JoinColumn(name="permission_id")})
-    private List<Permission> permissions = new ArrayList<>();
+
+    //property is an Enum type. we need to make it becomes a table
+    //create a template table in DB
+    @ElementCollection(targetClass = Permission.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_permission", joinColumns = {@JoinColumn(name = "user_id")})
+    @Column(name = "permission")
+    @Convert(converter = PermissionEnumConverter.class)
+    private List<Permission> permissions;
 }
