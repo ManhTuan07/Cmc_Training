@@ -19,12 +19,14 @@ public enum Gender {
     private static final Map<String, Gender> genderMap = new HashMap<>();
 
     static{
+        System.out.println("static block in Gender Enum");
         for(Gender gender : Gender.values()){
             genderMap.put(gender.value,gender);
         }
     }
 
     public static Gender of(String s){
+        System.out.println("of function in Gender");
         return genderMap.get(s);
     }
 }

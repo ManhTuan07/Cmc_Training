@@ -10,7 +10,10 @@ import java.util.List;
 public interface UserService {
 
     List<UserDto> getAll();
-    User saveOrUpdate(User user);
+    UserDto getOne(Long id);
 
+    public void delete (Long id);
     Page<UserDto> getPage(Pageable pageable);
+    public User saveOrUpdate(User user);
+
 }

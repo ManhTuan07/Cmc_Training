@@ -37,4 +37,18 @@ public class UserServiceImpl implements UserService {
     public Page<UserDto> getPage(Pageable pageable) {
         return userRepository.findAll(pageable).map(userMapper::toDto);
     }
+
+    @Override
+    public UserDto getOne(Long id) {
+        return userDto(userRepository.findById(id).orElseThrow(()-> new IllegalStateException("User not found")));
+    }
+
+    @Override
+    public void delete(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    private UserDto userDto(User user) {
+        return userMapper.toDto(user);
+    }
 }
