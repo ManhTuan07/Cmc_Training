@@ -19,5 +19,6 @@ public class UserDto {
     private String usernameDto;
     private Gender gender;
     private List<Permission> permissions;
+    private IdentityDto identityDto;
 
 }

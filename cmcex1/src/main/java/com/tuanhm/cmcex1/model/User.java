@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
+@Entity(name = "user")
 @Table
 @ToString
 public class User {
@@ -32,4 +32,7 @@ public class User {
     @Column(name = "permission")
     @Convert(converter = PermissionEnumConverter.class)
     private List<Permission> permissions;
+
+    @OneToOne(mappedBy = "user")
+    private Identity identity;
 }
